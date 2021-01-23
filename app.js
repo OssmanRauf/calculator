@@ -53,9 +53,15 @@ btn.forEach((element) => {
                 if (e.target.value === ".") {
                     equation.value += e.target.value;
                     e.target.disabled = true;
+                } else if (
+                    e.target.value === "*" ||
+                    (e.target.value === "/" && equation.value.length === 0)
+                ) {
+                    equation.value += "0" + e.target.value;
                 } else {
                     equation.value += e.target.value;
                 }
+
                 if (
                     e.target.value === "+" ||
                     e.target.value === "-" ||

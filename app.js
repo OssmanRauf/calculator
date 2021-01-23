@@ -54,10 +54,24 @@ btn.forEach((element) => {
                     equation.value += e.target.value;
                     e.target.disabled = true;
                 } else if (
-                    e.target.value === "*" ||
+                    (e.target.value === "*" && equation.value.length === 0) ||
                     (e.target.value === "/" && equation.value.length === 0)
                 ) {
+                    console.log(equation.value, length);
                     equation.value += "0" + e.target.value;
+                } else if (
+                    e.target.value === "+" ||
+                    e.target.value === "-" ||
+                    e.target.value === "*" ||
+                    e.target.value === "/"
+                ) {
+                    if (
+                        equation.value.charAt(equation.value.length - 1) === e.target.value
+                    ) {
+                        //pass
+                    } else {
+                        equation.value += e.target.value;
+                    }
                 } else {
                     equation.value += e.target.value;
                 }

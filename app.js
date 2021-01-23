@@ -40,7 +40,7 @@ btn.forEach((element) => {
                 result.textContent = equation.value.toString();
                 break;
             case "=":
-                if (eval(equation.value)) {
+                if (typeof eval(equation.value) === "number") {
                     equation.value = parseFloat(eval(equation.value).toFixed(4));
                     result.textContent = parseFloat(eval(equation.value).toFixed(4));
                     result.classList.add("result-equal");
@@ -50,11 +50,35 @@ btn.forEach((element) => {
                 }
                 break;
             default:
-                equation.value += e.target.value;
-                if (eval(equation.value)) {
+                if (e.target.value === ".") {
+                    equation.value += e.target.value;
+                    e.target.disabled = true;
+                } else {
+                    equation.value += e.target.value;
+                }
+                if (
+                    e.target.value === "+" ||
+                    e.target.value === "-" ||
+                    e.target.value === "*" ||
+                    e.target.value === "/"
+                ) {
+                    document.getElementById("decimal").disabled = false;
+                }
+                if (
+                    typeof eval(equation.value) === "number" &&
+                    eval(equation.value) != Infinity &&
+                    !isNaN(eval(equation.value))
+                ) {
                     result.textContent = parseFloat(eval(equation.value).toFixed(4));
+                    console.log("heloo");
                 } else if (equation.value === "0") {
                     result.textContent = "0";
+                    equation.value = "";
+                } else if (
+                    eval(equation.value) === Infinity ||
+                    isNaN(eval(equation.value))
+                ) {
+                    result.textContent = "ERROR";
                     equation.value = "";
                 } else {
                     result.textContent = equation.value.slice(0, -1);
@@ -64,3 +88,7 @@ btn.forEach((element) => {
         }
     });
 });
+
+function activeDecimal(params) {}
+
+function desableDecimal() {}
